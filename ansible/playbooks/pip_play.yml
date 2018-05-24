@@ -1,0 +1,12 @@
+---
+- name: check version
+  hosts: 158.39.75.148
+  become: True
+
+  tasks:
+    - name: install pip
+      apt:
+        name: python-pip
+    - name: ansible pip
+      pip:
+        name: ansible

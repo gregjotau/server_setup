@@ -1,0 +1,24 @@
+---
+- name: setup dev environment
+  hosts: uio
+  vars:
+    repo: https://github.com/gregjotau/dotfiles.git
+
+  tasks:
+    - name: make directory
+      debug: 
+        msg: "something"
+
+    - name: make directory
+      debug: 
+        msg: "something"
+        
+    - name: make directory
+      debug: 
+        msg: "something"        
+        
+    - name: make directory
+      debug: 
+        msg: "something"        
+
+

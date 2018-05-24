@@ -1,0 +1,30 @@
+# generelle regler
+.settings
+*~
+.cache
+rebel.xml
+.classpath
+.project
+.directory
+.idea
+.cache
+*.iml
+*.retry
+*.ipr
+*.iws
+nb-configuration.xml
+nbproject
+nbactions.xml
+.DS_Store
+.metadata
+*.swp
+ext
+elm-stuff
+
+#puppet settinger
+.librarian
+.tmp
+Puppetfile.lock
+
+# logg-filer
+modules/internapp/files/jira-monitor/jira_transmits.log
