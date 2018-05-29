@@ -1,0 +1,63 @@
+---
+
+- name: install the packages
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - "go"
+    - "git"
+
+- name: create gogs rc.d script
+  template:
+    src: gogs.rc.j2
+    dest: /etc/rc.d/gogs
+    owner: root
+    group: wheel
+    mode: 0555
+
+- name: add gogs to loging.conf
+  blockinfile:
+    path: /etc/login.conf
+    backup: yes
+    block: |
+      gogs:\
+      	:path=/usr/bin /bin /usr/sbin /sbin /usr/X11R6/bin /usr/local/bin /usr/local/sbin /home/git/go/bin:\
+      	:datasize-max=infinity:\
+      	:datasize-cur=2048M:\
+      	:maxproc-max=1024:\
+      	:maxproc-cur=256:\
+      	:openfiles-max=8192:\
+      	:openfiles-cur=4096:\
+      	:priority=20:\
+      	:tc=default:
+
+- name: configure gogs env
+  template:
+    src: dotprofile.j2
+    dest: /home/git/.profile
+    owner: git
+    mode: 0755
+
+- name: download latest gogs
+  command: go get -u github.com/gogits/gogs
+  environment:
+    GOPATH: /home/git/go
+  become: yes
+  become_user: git
+
+- name: build gogs
+  command: go build -tags "{{ gogs_build_flags | default('sqlite') }}"
+  args:
+    chdir: "$GOPATH/src/github.com/gogits/gogs"
+    creates: "$GOPATH/src/github.com/gogits/gogs/gogs"
+  environment:
+    GOPATH: /home/git/go
+  become: yes
+  become_user: git
+
+- name: enable gogs on boot and start it
+  service:
+    name: gogs
+    state: started
+    enabled: yes
