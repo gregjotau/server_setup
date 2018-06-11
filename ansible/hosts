@@ -2,9 +2,6 @@
 [uio]
 158.39.75.148 ansible_ssh_user=ubuntu
 
-[vps]
-212.47.254.58 ansible_ssh_user=root
-
 [pi]
 192.168.1.44 ansible_ssh_user=pi
 
