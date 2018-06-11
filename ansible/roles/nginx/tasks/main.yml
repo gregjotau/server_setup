@@ -1,0 +1,16 @@
+---
+
+- name: install nginx
+  apt: name=nginx state=present
+  become: true
+- name: create default config in sites-enabled
+  template:
+    src: default.j2
+    dest: /etc/nginx/sites-enabled/default
+  become: true
+- name: enable nginx service
+  service:
+    name: nginx
+    enabled: yes
+    state: reloaded
+  become: true

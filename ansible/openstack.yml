@@ -1,0 +1,10 @@
+---
+
+- name: openstack servers
+  hosts: openstack_bgo
+  roles:
+    - common
+    - git
+    - nginx
+    - ssh_private_keys
+    - git_clone

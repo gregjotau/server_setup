@@ -1,0 +1,19 @@
+
+- name: remove /var/www/html
+  file:
+    state: absent
+    path: /var/www/html    
+  become: yes
+- name: enable ssh-agent
+  shell: eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_rsa
+- name: Clone a private repository.
+  git:
+    repo: git@github.com:gregjotau/personal_website.git
+    version: master
+    dest: /home/ubuntu/personal_website_tmp
+    accept_hostkey: yes
+    force: yes
+  become: no
+- name: copy files over to /var/www/html
+  shell: mv /home/ubuntu/personal_website_tmp /var/www/html
+  become: yes
