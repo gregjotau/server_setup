@@ -1,6 +1,8 @@
-
-[uio]
+[openstack_osl]
 158.39.75.148 ansible_ssh_user=ubuntu
+
+[openstack_bgo]
+158.39.77.210 ansible_ssh_user=ubuntu
 
 [pi]
 192.168.1.44 ansible_ssh_user=pi
