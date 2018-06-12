@@ -1,0 +1,22 @@
+---
+
+- name: install pip 3
+  apt: name=python3-pip state=present
+  become: true
+- name: install packages with pip
+  pip: name={{item}}
+  with_items:
+    - jupyter
+    - numpy
+    - scipy
+    - matplotlib
+    - sympy
+    - pandas
+  become: true
+
+- name: install dependencies for pdf generation
+  apt: name={{item}} state=installed
+  with_items:
+    - pandoc
+    - texlive-xetex
+  become: true

@@ -1,0 +1,9 @@
+---
+
+- name: jupyter notebook and dependencies
+  hosts: openstack_osl
+  roles:
+    - common
+    - git
+    - jupyter
+
